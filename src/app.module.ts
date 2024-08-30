@@ -1,23 +1,26 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DatabaseModule } from './config/database/database.module';
+import {
+  DB_HOST,
+  DB_PASSWORD,
+  DB_PORT,
+  DB_TYPE,
+  DB_USERNAME,
+} from './config/constants';
 import { UsersModule } from './modules/users/users.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
 
 @Module({
   imports: [
     // DatabaseModule.forRoot(),
     TypeOrmModule.forRoot({
-      type: process.env.DB_TYPE as any, // typeorm expects specific values, casting is needed
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT, 10),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
+      type: DB_TYPE as any, // typeorm expects specific values, casting is needed
+      host: DB_HOST,
+      port: DB_PORT,
+      username: DB_USERNAME,
+      password: DB_PASSWORD,
+      database: DB_USERNAME,
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
 
       synchronize: false,

@@ -1,15 +1,19 @@
+import {
+  DB_HOST,
+  DB_PASSWORD,
+  DB_PORT,
+  DB_TYPE,
+  DB_USERNAME,
+} from 'src/config/constants';
 import { DataSource } from 'typeorm';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
 
 export const AppDataSource = new DataSource({
-  type: process.env.DB_TYPE as any,
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT, 10),
-  username: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  type: DB_TYPE as any,
+  host: DB_HOST,
+  port: DB_PORT,
+  username: DB_USERNAME,
+  password: DB_PASSWORD,
+  database: DB_USERNAME,
   entities: ['src/database/entity/*.ts'],
   migrations: ['src/database/migrations/*.ts'],
   synchronize: false,
