@@ -1,5 +1,6 @@
 import { Module, Global } from '@nestjs/common';
 import { databaseProviders } from './database.providers';
+import { UserRepository } from 'src/database/repository/User.repository';
 
 @Global()
 @Module({
