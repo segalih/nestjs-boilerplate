@@ -1,0 +1,13 @@
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+
+export class {{dtoName}}Dto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  // Add more fields and validation as needed
+}
