@@ -9,12 +9,10 @@ export class UsersController {
   @Post('register')
   async create(@Body() data: CreateUserDto) {
     try {
-      return this.usersService.create(data);
+      console.log('kocak1');
+      return await this.usersService.create(data);
     } catch (error) {
-      throw new BadRequestException('Something bad happened', {
-        cause: new Error(),
-        description: 'Some error description',
-      });
+      throw error;
     }
   }
 }

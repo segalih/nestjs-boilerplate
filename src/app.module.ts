@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import {
+  DB_DATABASE,
   DB_HOST,
   DB_PASSWORD,
   DB_PORT,
@@ -20,7 +21,7 @@ import { UsersModule } from './modules/users/users.module';
       port: DB_PORT,
       username: DB_USERNAME,
       password: DB_PASSWORD,
-      database: DB_USERNAME,
+      database: DB_DATABASE,
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
 
       synchronize: false,

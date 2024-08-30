@@ -1,13 +1,8 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { BaseRepository } from './Base.repository';
-import { User } from '../entities/User.entity';
 import { CreateUserDto } from 'src/dto/user/CreateUserDto.dto';
+import { Repository } from 'typeorm';
+import { User } from '../entities/User.entity';
 
 @Injectable()
 export class UserRepository {
@@ -17,7 +12,11 @@ export class UserRepository {
   ) {}
 
   async create(user: CreateUserDto): Promise<User> {
-    return this.repository.save(user);
+    try {
+      return this.repository.save(user);
+    } catch (error) {
+      console.log('aa');
+    }
   }
   // You can add User-specific methods here
 }
