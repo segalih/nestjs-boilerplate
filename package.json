@@ -24,7 +24,9 @@
     "migration:show": "npm run build && npx typeorm migration:show -d ./data-source.js",
     "example:migration:create": "npm run migration:create -- --name CreateTableUser",
     "entity:create": "node ./script/create-entity.js",
-    "example:entity:create": "npm run entity:create -- --name User"
+    "example:entity:create": "npm run entity:create -- --name User",
+    "module:create": "node ./script/generate-module.js",
+    "example:module:create": "npm run module:create -- --name users"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.2",
