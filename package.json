@@ -19,15 +19,16 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/jest/bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migration:create": "node ./script/create-migration.js",
-    "migration:run": "npx typeorm migration:run -d ./data-source.js",
-    "migration:revert": "npx typeorm migration:revert -d ./data-source.js",
-    "migration:show": "npm run build && npx typeorm migration:show -d ./data-source.js",
     "example:migration:create": "npm run migration:create -- --name CreateTableUser",
     "entity:create": "node ./script/create-entity.js",
     "example:entity:create": "npm run entity:create -- --name User",
     "module:create": "node ./script/generate-module.js",
     "example:module:create": "npm run module:create -- --name users",
-    "dto:create": "node ./script/generate-dto.js"
+    "dto:create": "node ./script/generate-dto.js",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:run": "npm run typeorm migration:run -- -d ./data-source.ts",
+    "migration:revert": "npm run typeorm migration:revert -- -d ./data-source.ts",
+    "migration:show": "npm run typeorm migration:show -- -d ./data-source.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.2",
