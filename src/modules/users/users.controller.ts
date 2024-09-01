@@ -5,14 +5,18 @@ import {
   Get,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from 'src/dto/user/CreateUserDto.dto';
+import { AuthGuard } from '../auth/auth.guard';
+import { Public } from 'src/common/decorator/public.decorator';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Public()
   @Post('register')
   async create(@Body() data: CreateUserDto) {
     try {

@@ -13,6 +13,7 @@ export class AuthService {
     username: string,
     pass: string,
   ): Promise<{ access_token: string }> {
+    console.log(username, pass);
     const user = await this.usersService.findOne(username);
     const isValidPassword =
       user && (await this.usersService.validatePassword(pass, user.password));

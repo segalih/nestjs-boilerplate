@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,9 +11,9 @@ import {
   DB_TYPE,
   DB_USERNAME,
 } from './config/constants';
-import { UsersModule } from './modules/users/users.module';
+import { AuthGuard } from './modules/auth/auth.guard';
 import { AuthModule } from './modules/auth/auth.module';
-import { UserRepository } from './database/repository/User.repository';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -28,11 +29,16 @@ import { UserRepository } from './database/repository/User.repository';
 
       synchronize: false,
     }),
-
     UsersModule,
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}
