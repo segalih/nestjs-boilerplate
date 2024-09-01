@@ -42,4 +42,38 @@ export class BaseRepository<T> {
   async delete(id: number): Promise<void> {
     await this.repository.delete(id);
   }
+
+  // Find all with pagination
+  async findAllWithPagination(
+    page: number = 1,
+    limit: number = 10,
+    options?: FindManyOptions<T>,
+  ): Promise<{ data: T[]; total: number; totalPages: number; offset: number }> {
+    // Apply soft delete filter
+    const where = {
+      ...(options?.where || {}),
+      deleted_at: null,
+    };
+    console.log({
+      ...options,
+      where,
+      take: limit,
+      skip: (page - 1) * limit,
+    });
+    // Use `findAndCount` with the filter applied
+    const [data, total] = await this.repository.findAndCount({
+      ...options,
+      where,
+      take: limit,
+      skip: (page - 1) * limit,
+    });
+
+    // Calculate total pages
+    const totalPages = Math.ceil(total / limit);
+
+    // Calculate offset
+    const offset = (page - 1) * limit;
+
+    return { data, total, totalPages, offset };
+  }
 }

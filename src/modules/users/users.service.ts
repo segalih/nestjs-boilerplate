@@ -16,4 +16,12 @@ export class UsersService {
       password: newPassword,
     });
   }
+
+  async page(page: number = 1, limit: number = 10): Promise<any> {
+    return await this.usersRepository.findAllWithPagination(page, limit, {
+      where: {
+        deleted_at: null,
+      },
+    });
+  }
 }

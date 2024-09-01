@@ -1,4 +1,11 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from 'src/dto/user/CreateUserDto.dto';
 
@@ -14,5 +21,16 @@ export class UsersController {
     } catch (error) {
       throw error;
     }
+  }
+
+  @Get()
+  async findAll(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ) {
+    return await this.usersService.page(
+      page > 0 ? page : 1,
+      limit > 0 ? limit : 10,
+    );
   }
 }
