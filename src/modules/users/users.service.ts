@@ -24,4 +24,15 @@ export class UsersService {
       },
     });
   }
+
+  async findOne(username: string): Promise<User | undefined> {
+    return await this.usersRepository.findOne({ where: { username } });
+  }
+
+  async validatePassword(
+    password: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
+    return await bcrypt.compare(password, hashedPassword);
+  }
 }

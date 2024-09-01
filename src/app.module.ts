@@ -11,6 +11,8 @@ import {
   DB_USERNAME,
 } from './config/constants';
 import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserRepository } from './database/repository/User.repository';
 
 @Module({
   imports: [
@@ -28,6 +30,7 @@ import { UsersModule } from './modules/users/users.module';
     }),
 
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

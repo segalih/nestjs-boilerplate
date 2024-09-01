@@ -12,7 +12,7 @@ export const DB_DATABASE = process.env.DB_DATABASE || 'mydatabase';
 
 // JWT-related constants
 export const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
-export const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '1h';
+export const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '8h';
 
 // Application-related constants
 export const APP_PORT = parseInt(process.env.APP_PORT, 10) || 3000;

@@ -6,7 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 
-@Catch(HttpException, Error)
+@Catch(Error)
 export class AllExceptionsFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
@@ -20,7 +20,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
-    const message = exception.message || 'Internal server error';
+    const message =
+      exception.getResponse()['message'] || 'Internal server error';
 
     // Construct the log message
     const logMessage = `[${new Date().toISOString()}] {pathUrl: ${request.url}, request: ${JSON.stringify(request.body)}, error_message: ${message}}`;
@@ -31,7 +32,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
     // Send the response to the client
     response.status(status).json({
       statusCode: status,
-      timestamp: new Date().toISOString(),
       path: request.url,
       message: status === 500 ? 'Internal server error' : message,
     });
